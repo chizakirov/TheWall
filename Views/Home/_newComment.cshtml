@@ -1,0 +1,13 @@
+@model Comment
+
+<form asp-action="AddComment" asp-controller="Home" method="post">
+
+    <span class="text-danger" asp-validation-for="Text"></span>
+    <label asp-for="Text">Post a Comment</label>
+    <input asp-for="Text">
+    <input type="hidden" asp-for="MessageId" value="@this.ViewData["msgId"]">
+    <input type="hidden" asp-for="UserId" value="@TempData["id"]">
+    <br>
+    <br>
+    <button class="btn btn-warning">Post Comment</button>
+</form>

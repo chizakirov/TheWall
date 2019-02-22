@@ -1,0 +1,25 @@
+@model Message
+
+<form asp-action="AddMsg" asp-controller="Home" method="post">
+    <span class="text-danger" asp-validation-for="MessageText"></span>
+    <label asp-for="MessageText">Post a Message</label>
+    <input asp-for="MessageText">
+    <br>
+    <br>
+    <button class="btn btn-primary">Post Message</button>
+</form>
+<hr>
+@{
+  foreach(var msg in @ViewBag.messages){
+    <h4>Name: @msg.User.FirstName</h4>
+    <h4 class="text-primary">Message: @msg.MessageText</h4>
+    if((int)TempData["id"] != @msg.User.UserId){
+      @Html.Partial("_newComment.cshtml", new ViewDataDictionary(this.ViewData) { {"msgId", @msg.MessageId} });
+    }
+    foreach(var c in @msg.Comments){
+      <p>Comment: @c.Text</p>
+      <p>Commentor: @c.User.FirstName</p>
+    }
+  }
+}
+
